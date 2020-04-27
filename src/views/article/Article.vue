@@ -9,7 +9,12 @@
           :name="item.type_id"
         ></el-tab-pane>
       </el-tabs>
-      <tArticle v-for="item in articleList" :data="item" :key="item.id" :types="art_types"></tArticle>
+      <div v-if="articleList.length>0">
+        <tArticle  v-for="item in articleList" :data="item" :key="item.id" :types="art_types"></tArticle>
+      </div>
+      <div v-else class="txt-center">
+        暂无数据
+      </div>
       <el-pagination
         @size-change="sizeChange"
         @current-change="pageChange"

@@ -3,9 +3,9 @@
     <div class="art-title" @click="gotoDetail(data._id)">{{data.title}}</div>
     <div class="art-info flex flex-wrap">
       <div>发布时间：{{ data.create_time | dateFormat }}</div>
-      <div>类型：{{ art_type.type_name }}</div>
+      <div>类型：{{art_type?art_type.type_name:'未知' }}</div>
       <div>阅读：{{data.view_count}}人次</div>
-      <div>评论：{{data.commit_num}}条</div>
+      <div>评论：{{data.commits?data.commits.commit_num:0}}条</div>
     </div>
     <div class="txt-hidden-3 art-desc txt-justify">
       <span>摘要:</span>
@@ -38,6 +38,7 @@ export default {
   },
   computed: {
     art_type() {
+      console.log(this.types);
       return this.types.filter(item => item.type_id === this.data.type_id)[0];
     }
   }

@@ -14,7 +14,7 @@ const service = axios.create();
 // 接口基础路径
 service.defaults.baseURL = isProduction
   ? "http://121.40.125.106:7003/"
-  : "/api";
+  : "http://121.40.125.106:7003/";
 
 // 超时时间
 service.defaults.timeout = 10000;
