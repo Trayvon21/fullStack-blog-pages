@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     art_type() {
-      console.log(this.types);
       return this.types.filter(item => item.type_id === this.data.type_id)[0];
     }
   }

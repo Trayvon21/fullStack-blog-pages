@@ -5,7 +5,7 @@ module.exports = {
     proxy: {
       "/api": {
         ws: false,
-        target: "http://localhost:7001/",
+        target: "http://121.40.125.106:7003/",
         changeOrigin: true,
         pathRewrite: {
           "^/api": "",
@@ -19,6 +19,7 @@ module.exports = {
       alias: {},
     },
     externals: {
+      "jquery":"$",
       "mavon-editor": "MavonEditor",
       vue: "Vue",
       vuex: "Vuex",

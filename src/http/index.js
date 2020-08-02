@@ -6,15 +6,13 @@ import "nprogress/nprogress.css";
 // 判断当前环境是生产环境还是开发环境
 // process.env.NODE_ENV的值决定当前环境
 // production为生产环境 development为开发环境
-const isProduction = process.env.NODE_ENV === "production";
+// const isProduction = process.env.NODE_ENV === "production";
 
 // 创建axios配置对象
 const service = axios.create();
 
 // 接口基础路径
-service.defaults.baseURL = isProduction
-  ? "http://121.40.125.106:7003/"
-  : "http://121.40.125.106:7003/";
+service.defaults.baseURL = "/api";
 
 // 超时时间
 service.defaults.timeout = 10000;

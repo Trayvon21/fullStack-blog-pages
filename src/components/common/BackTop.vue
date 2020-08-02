@@ -1,5 +1,7 @@
 <template>
-  <div class="wraper" @click="backtop">Top</div>
+  <div class="wraper" @click="backtop">
+    <img src="../../assets/imgs/backtop.svg" alt="">
+  </div>
 </template>
 
 <script>
@@ -25,6 +27,11 @@ export default {
   width: 50px;
   line-height: 50px;
   text-align: center;
-  background: green;
+  /*background: green;*/
+  img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
 }
 </style>

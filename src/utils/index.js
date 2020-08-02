@@ -3,9 +3,9 @@ import Vue from "vue";
 import hljs from "highlight.js";
 
 //封装成一个指令
-Vue.directive("highlight", el => {
+Vue.directive("highlight", (el) => {
   let blocks = el.querySelectorAll("pre code");
-  blocks.forEach(block => {
+  blocks.forEach((block) => {
     hljs.highlightBlock(block);
   });
 });

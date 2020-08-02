@@ -89,3 +89,68 @@ body {
 .border-down {
   border-bottom: 2rpx solid #f5f5f5;
 }
+/* for block of numbers */
+pre {
+  border: 1px solid #ededed;
+}
+.markdown-body /deep/ {
+  img {
+    max-width: 90%;
+  }
+}
+pre > .hljs {
+  border-left: 5px solid skyblue;
+}
+code {
+  padding: 0 !important;
+}
+.hljs {
+  // margin: 5px 0;
+  padding: 0 !important;
+}
+blockquote {
+  border: 1px solid #ededed;
+  border-left: 5px solid #ededed;
+  padding-left: 10px;
+  margin-inline-start: 10px !important;
+}
+.hljs-ln-numbers {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  color: gray;
+  vertical-align: top;
+  padding: 4px !important;
+  border-right: 1px solid #ededed;
+  /* your custom style here */
+}
+
+.hljs-ln-code {
+  padding: 0 5px !important;
+}
+table:not(.hljs-ln) {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  border-spacing: 0;
+  border-collapse: collapse;
+  th {
+    font-weight: 600;
+  }
+  th,
+  td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+  }
+  tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+  }
+  tr:nth-child(2n) {
+    background-color: #f6f8fa;
+  }
+}

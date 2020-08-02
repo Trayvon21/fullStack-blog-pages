@@ -22,9 +22,8 @@
               <div>发布时间：{{artDetail.create_time | timeFormat}}</div>
             </div>
           </div>
-          <div class="content" v-highlight v-html="artDetail.content"></div>
+          <div class="markdown-body" v-highlight v-html="artDetail.contentRender"></div>
         </div>
-        <!-- <mavon-editor ref="editor" v-model="value" @save="save" /> -->
         <edit-commit :id="artDetail._id"></edit-commit>
         <comTitle title="留言板" english="Message"></comTitle>
         <div v-if="artDetail.commits.length>0">
@@ -47,8 +46,10 @@
 import editCommit from "../../components/detail/EditCommit";
 import eachCommit from "../../components/detail/EachCommit";
 import comTitle from "../../components/common/CommonTitle";
+import hljs from "highlight.js";
 import { createNamespacedHelpers } from "vuex";
-import marked from "marked";
+import $ from "jquery";
+// import marked from "marked";
 const articleModel = createNamespacedHelpers("article");
 const { mapActions: articleActions, mapState: articleState } = articleModel;
 
@@ -66,10 +67,6 @@ export default {
   },
   methods: {
     ...articleActions(["getArtDetail", "editArtDetail"]),
-    save() {
-      let content = marked(this.value);
-      this.editArtDetail({ id: this.artDetail._id, content });
-    },
     goBack() {
       this.$router.go(-1);
     },
@@ -81,11 +78,58 @@ export default {
         path: "article",
         query: { id: this.art_type.type_id }
       });
+    },
+    setLine() {
+      //markdown代码存放在pre code 标签对中
+      $("pre code").each(function() {
+        let lines =
+          $(this)
+            .text()
+            .split("\n").length - 1;
+        //添加有序列表
+        let $numbering = $("<ol/>").addClass("pre-numbering");
+        //添加复制按钮，此处使用的是element-ui icon 图标
+        let $copy = $('<i title="copy"/>').addClass(
+          "el-icon-document-copy code-copy"
+        );
+        $(this)
+          .parent()
+          .addClass("code")
+          .append($numbering)
+          .append($copy);
+        for (let i = 0; i <= lines; i++) {
+          $numbering.append($("<li/>"));
+        }
+      });
+      //监听复制按钮点击事件
+      $("pre.code i.code-copy").click(e => {
+        let text = $(e.target)
+          .siblings("code")
+          .text();
+        let element = $("<textarea>" + text + "</textarea>");
+        $("body").append(element);
+        element[0].select();
+        document.execCommand("Copy");
+        element.remove();
+        //这里是自定义的消息通知组件
+        this.$message.success("代码复制成功");
+      });
     }
   },
-  mounted() {
-    this.getArtDetail(this.$route.query.id).then(() => {
-      this.value = this.artDetail.content;
+  async mounted() {
+    await this.getArtDetail(this.$route.query.id);
+    // this.value = this.artDetail.contentRender;
+    // console.log(this.artDetail.contentRender);
+    this.$nextTick(() => {
+      // this.setLine();
+      // hljs.initHighlightingOnLoad();
+
+      // hljs.initLineNumbersOnLoad();
+      $(document).ready(function() {
+        $("code.hljs").each(function(i, block) {
+          hljs.lineNumbersBlock(block);
+        });
+      });
     });
   },
   computed: {
@@ -122,10 +166,10 @@ export default {
     cursor: pointer;
   }
 }
-.content {
-  margin: 15px 0;
-  line-height: 1.5;
-}
+// .content {
+//   margin: 15px 0;
+//   line-height: 1.5;
+// }
 
 .art-title {
   font-size: 30px;
